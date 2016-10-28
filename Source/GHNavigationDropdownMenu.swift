@@ -291,14 +291,14 @@ open class GHNavigationDropdownMenu: UIView {
     fileprivate var menuArrow: UIImageView!
     fileprivate var backgroundView: UIView!
     fileprivate var tableView: GHTableView!
-    fileprivate var items: [AnyObject]!
+    fileprivate var items: [GHDropdownItem]!
     fileprivate var menuWrapper: UIView!
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public init(navigationController: UINavigationController? = nil, containerView: UIView = UIApplication.shared.keyWindow!, title: String, items: [AnyObject]) {
+    public init(navigationController: UINavigationController? = nil, containerView: UIView = UIApplication.shared.keyWindow!, selected: GHDropdownItem, items: [GHDropdownItem]) {
         // Key window
         guard let window = UIApplication.shared.keyWindow else {
             super.init(frame: CGRect.zero)
@@ -313,7 +313,7 @@ open class GHNavigationDropdownMenu: UIView {
         }
         
         // Get titleSize
-        let titleSize = (title as NSString).size(attributes: [NSFontAttributeName:self.configuration.navigationBarTitleFont])
+        let titleSize = (selected.title as NSString).size(attributes: [NSFontAttributeName:self.configuration.navigationBarTitleFont])
         
         // Set frame
         let frame = CGRect(x: 0, y: 0, width: titleSize.width + (self.configuration.arrowPadding + self.configuration.arrowImage.size.width)*2, height: self.navigationController!.navigationBar.frame.height)
@@ -329,7 +329,7 @@ open class GHNavigationDropdownMenu: UIView {
         self.addSubview(self.menuButton)
 
         self.menuTitle = UILabel(frame: frame)
-        self.menuTitle.text = title
+        self.menuTitle.text = selected.title
         self.menuTitle.textColor = self.menuTitleColor
         self.menuTitle.font = self.configuration.navigationBarTitleFont
         self.menuTitle.textAlignment = self.configuration.cellTextLabelAlignment
@@ -359,7 +359,7 @@ open class GHNavigationDropdownMenu: UIView {
         // Init table view
         let navBarHeight = self.navigationController?.navigationBar.bounds.size.height ?? 0
         let statusBarHeight = UIApplication.shared.statusBarFrame.height 
-        self.tableView = GHTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: menuWrapperBounds.height + 300 - navBarHeight - statusBarHeight), items: items, title: title, configuration: self.configuration)
+        self.tableView = GHTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: menuWrapperBounds.height + 300 - navBarHeight - statusBarHeight), items: items, selected: selected, configuration: self.configuration)
         
         self.tableView.selectRowAtIndexPathHandler = { [weak self] (indexPath: Int) -> () in
             guard let selfie = self else {
@@ -367,7 +367,7 @@ open class GHNavigationDropdownMenu: UIView {
             }
             selfie.didSelectItemAtIndexHandler!(indexPath)
             if selfie.shouldChangeTitleText! {
-                selfie.setMenuTitle("\(selfie.tableView.items[indexPath])")
+                selfie.setMenuTitle("\(selfie.tableView.items[indexPath].title)")
             }
             self?.hideMenu()
             self?.layoutSubviews()
@@ -419,7 +419,7 @@ open class GHNavigationDropdownMenu: UIView {
         }
     }
     
-    open func updateItems(_ items: [AnyObject]) {
+    open func updateItems(_ items: [GHDropdownItem]) {
         if !items.isEmpty {
             self.tableView.items = items
             self.tableView.reloadData()
@@ -530,6 +530,19 @@ open class GHNavigationDropdownMenu: UIView {
     }
 }
 
+// MARK: - Dropdown Item
+public struct GHDropdownItem {
+    let title: String
+    let subtitle: String
+}
+
+extension GHDropdownItem: Equatable {}
+// MARK: Equatable
+public func ==(lhs: GHDropdownItem, rhs: GHDropdownItem) -> Bool {
+    return lhs.title == rhs.title && lhs.subtitle == rhs.subtitle
+}
+
+
 // MARK: - Configuration
 class GHConfiguration {
     var menuTitleColor: UIColor?
@@ -604,18 +617,18 @@ class GHTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     var selectRowAtIndexPathHandler: ((_ indexPath: Int) -> ())?
     
     // Private properties
-    fileprivate var items: [AnyObject]!
+    fileprivate var items: [GHDropdownItem]!
     fileprivate var selectedIndexPath: Int?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, items: [AnyObject], title: String, configuration: GHConfiguration) {
+    init(frame: CGRect, items: [GHDropdownItem], selected: GHDropdownItem, configuration: GHConfiguration) {
         super.init(frame: frame, style: UITableViewStyle.plain)
         
         self.items = items
-        self.selectedIndexPath = (items as! [String]).index(of: title)
+        self.selectedIndexPath = items.index(of: selected)
         self.configuration = configuration
         
         // Setup table view
@@ -649,9 +662,16 @@ class GHTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = GHTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell", configuration: self.configuration)
-        cell.textLabel?.text = self.items[(indexPath as NSIndexPath).row] as? String
-        cell.checkmarkIcon.isHidden = ((indexPath as NSIndexPath).row == selectedIndexPath) ? false : true
+        let cell = GHTableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "Cell", configuration: self.configuration)
+        let item = self.items[indexPath.row]
+        cell.textLabel?.text = item.title
+        if item.subtitle != "" {
+            cell.detailTextLabel?.text = item.subtitle
+            cell.detailTextLabel?.isHidden = false
+        } else {
+            cell.detailTextLabel?.isHidden = true
+        }
+        cell.checkmarkIcon.isHidden = (indexPath.row == selectedIndexPath) ? false : true
         return cell
     }
     
@@ -704,11 +724,23 @@ class GHTableViewCell: UITableViewCell {
         self.textLabel!.font = self.configuration.cellTextLabelFont
         self.textLabel!.textAlignment = self.configuration.cellTextLabelAlignment
         if self.textLabel!.textAlignment == .center {
-            self.textLabel!.frame = CGRect(x: 0, y: 0, width: cellContentFrame.width, height: cellContentFrame.height)
+            self.textLabel!.frame = CGRect(x: 0, y: 0, width: cellContentFrame.width, height: self.configuration.cellTextLabelHeight)
         } else if self.textLabel!.textAlignment == .left {
-            self.textLabel!.frame = CGRect(x: horizontalMargin, y: 0, width: cellContentFrame.width, height: cellContentFrame.height)
+            self.textLabel!.frame = CGRect(x: horizontalMargin, y: 0, width: cellContentFrame.width, height: self.configuration.cellTextLabelHeight)
         } else {
-            self.textLabel!.frame = CGRect(x: -horizontalMargin, y: 0, width: cellContentFrame.width, height: cellContentFrame.height)
+            self.textLabel!.frame = CGRect(x: -horizontalMargin, y: 0, width: cellContentFrame.width, height: self.configuration.cellTextLabelHeight)
+        }
+        
+        // Cell detail text label
+        self.detailTextLabel!.textColor = self.configuration.cellDetailTextLabelColor
+        self.detailTextLabel!.font = self.configuration.cellDetailTextLabelFont
+        self.detailTextLabel!.textAlignment = self.configuration.cellDetailTextLabelAlignment
+        if self.detailTextLabel!.textAlignment == .center {
+            self.detailTextLabel!.frame = CGRect(x: 0, y: self.configuration.cellTextLabelHeight, width: cellContentFrame.width, height: self.configuration.cellDetailTextLabelHeight)
+        } else if self.detailTextLabel!.textAlignment == .left {
+            self.detailTextLabel!.frame = CGRect(x: horizontalMargin, y: self.configuration.cellTextLabelHeight, width: cellContentFrame.width, height: self.configuration.cellDetailTextLabelHeight)
+        } else {
+            self.detailTextLabel!.frame = CGRect(x: -horizontalMargin, y: self.configuration.cellTextLabelHeight, width: cellContentFrame.width, height: self.configuration.cellDetailTextLabelHeight)
         }
         
         // Checkmark icon
