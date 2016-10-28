@@ -48,6 +48,26 @@ open class GHNavigationDropdownMenu: UIView {
             self.configuration.cellHeight = CGFloat(value)
         }
     }
+    
+    // The height of the cell. Default is 30
+    open var cellTextLabelHeight: NSNumber! {
+        get {
+            return self.configuration.cellTextLabelHeight as NSNumber!
+        }
+        set(value) {
+            self.configuration.cellTextLabelHeight = CGFloat(value)
+        }
+    }
+    
+    // The height of the cell. Default is 20
+    open var cellDetailTextLabelHeight: NSNumber! {
+        get {
+            return self.configuration.cellDetailTextLabelHeight as NSNumber!
+        }
+        set(value) {
+            self.configuration.cellDetailTextLabelHeight = CGFloat(value)
+        }
+    }
 
     // The color of the cell background. Default is whiteColor()
     open var cellBackgroundColor: UIColor! {
@@ -98,6 +118,26 @@ open class GHNavigationDropdownMenu: UIView {
         }
     }
     
+    // The color of the deetail text inside cell. Default is darkGrayColor()
+    open var cellDetailTextLabelColor: UIColor! {
+        get {
+            return self.configuration.cellDetailTextLabelColor
+        }
+        set(value) {
+            self.configuration.cellDetailTextLabelColor = value
+        }
+    }
+    
+    // The color of the detail text inside a selected cell. Default is darkGrayColor()
+    open var selectedCellDetailTextLabelColor: UIColor! {
+        get {
+            return self.configuration.selectedCellDetailTextLabelColor
+        }
+        set(value) {
+            self.configuration.selectedCellDetailTextLabelColor = value
+        }
+    }
+    
     // The font of the text inside cell. Default is HelveticaNeue-Bold, size 17
     open var cellTextLabelFont: UIFont! {
         get {
@@ -105,6 +145,16 @@ open class GHNavigationDropdownMenu: UIView {
         }
         set(value) {
             self.configuration.cellTextLabelFont = value
+        }
+    }
+    
+    // The font of the detail text inside cell. Default is HelveticaNeue-Bold, size 17
+    open var cellDetailTextLabelFont: UIFont! {
+        get {
+            return self.configuration.cellDetailTextLabelFont
+        }
+        set(value) {
+            self.configuration.cellDetailTextLabelFont = value
         }
     }
     
@@ -126,6 +176,16 @@ open class GHNavigationDropdownMenu: UIView {
         }
         set(value) {
             self.configuration.cellTextLabelAlignment = value
+        }
+    }
+    
+    // The alignment of the detail text inside cell. Default is .Left
+    open var cellDetailTextLabelAlignment: NSTextAlignment! {
+        get {
+            return self.configuration.cellDetailTextLabelAlignment
+        }
+        set(value) {
+            self.configuration.cellDetailTextLabelAlignment = value
         }
     }
     
@@ -371,6 +431,7 @@ open class GHNavigationDropdownMenu: UIView {
         self.cellBackgroundColor = self.navigationController?.navigationBar.barTintColor
         self.cellSeparatorColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
         self.cellTextLabelColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
+        self.cellDetailTextLabelColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
         
         self.arrowTintColor = self.configuration.arrowTintColor
     }
@@ -473,13 +534,19 @@ open class GHNavigationDropdownMenu: UIView {
 class GHConfiguration {
     var menuTitleColor: UIColor?
     var cellHeight: CGFloat!
+    var cellTextLabelHeight: CGFloat!
+    var cellDetailTextLabelHeight: CGFloat!
     var cellBackgroundColor: UIColor?
     var cellSeparatorColor: UIColor?
     var cellTextLabelColor: UIColor?
     var selectedCellTextLabelColor: UIColor?
     var cellTextLabelFont: UIFont!
+    var cellDetailTextLabelColor: UIColor?
+    var selectedCellDetailTextLabelColor: UIColor?
+    var cellDetailTextLabelFont: UIFont!
     var navigationBarTitleFont: UIFont!
     var cellTextLabelAlignment: NSTextAlignment!
+    var cellDetailTextLabelAlignment: NSTextAlignment!
     var cellSelectionColor: UIColor?
     var checkMarkImage: UIImage!
     var shouldKeepSelectedCellColor: Bool!
@@ -506,6 +573,8 @@ class GHConfiguration {
         // Default values
         self.menuTitleColor = UIColor.darkGray
         self.cellHeight = 50
+        self.cellTextLabelHeight = 30
+        self.cellDetailTextLabelHeight = 20
         self.cellBackgroundColor = UIColor.white
         self.arrowTintColor = UIColor.white
         self.cellSeparatorColor = UIColor.darkGray
@@ -514,6 +583,7 @@ class GHConfiguration {
         self.cellTextLabelFont = UIFont(name: "HelveticaNeue-Bold", size: 17)
         self.navigationBarTitleFont = UIFont(name: "HelveticaNeue-Bold", size: 17)
         self.cellTextLabelAlignment = NSTextAlignment.left
+        self.cellDetailTextLabelAlignment = NSTextAlignment.left
         self.cellSelectionColor = UIColor.lightGray
         self.checkMarkImage = UIImage(contentsOfFile: checkMarkImagePath!)
         self.shouldKeepSelectedCellColor = false
@@ -628,6 +698,8 @@ class GHTableViewCell: UITableViewCell {
         cellContentFrame = CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.width)!, height: self.configuration.cellHeight)
         self.contentView.backgroundColor = self.configuration.cellBackgroundColor
         self.selectionStyle = UITableViewCellSelectionStyle.none
+        
+        // Cell text label
         self.textLabel!.textColor = self.configuration.cellTextLabelColor
         self.textLabel!.font = self.configuration.cellTextLabelFont
         self.textLabel!.textAlignment = self.configuration.cellTextLabelAlignment
