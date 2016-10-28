@@ -534,6 +534,11 @@ open class GHNavigationDropdownMenu: UIView {
 public struct GHDropdownItem {
     public let title: String
     public let subtitle: String
+    
+    public init(title: String, subtitle: String) {
+        self.title = title
+        self.subtitle = subtitle
+    }
 }
 
 extension GHDropdownItem: Equatable {}
