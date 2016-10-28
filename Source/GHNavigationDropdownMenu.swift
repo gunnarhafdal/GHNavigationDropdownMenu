@@ -339,7 +339,7 @@ open class GHNavigationDropdownMenu: UIView {
         // Init table view
         let navBarHeight = self.navigationController?.navigationBar.bounds.size.height ?? 0
         let statusBarHeight = UIApplication.shared.statusBarFrame.height 
-        self.tableView = GHTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: menuWrapperBounds.height + 300 - navBarHeight - statusBarHeight), items: items, selected: selected, configuration: self.configuration)
+        self.tableView = GHTableView(frame: CGRect(x: (menuWrapperBounds.width - 220)/2, y: menuWrapperBounds.origin.y + 0.5, width: 220, height: menuWrapperBounds.height + 300 - navBarHeight - statusBarHeight), items: items, selected: selected, configuration: self.configuration)
         
         self.tableView.selectRowAtIndexPathHandler = { [weak self] (indexPath: Int) -> () in
             guard let selfie = self else {
@@ -358,7 +358,7 @@ open class GHNavigationDropdownMenu: UIView {
         self.menuWrapper.addSubview(self.tableView)
         
         // Add Line on top
-        self.topSeparator = UIView(frame: CGRect(x: 0, y: 0, width: menuWrapperBounds.size.width, height: 0.5))
+        self.topSeparator = UIView(frame: CGRect(x: (menuWrapperBounds.width - 220)/2, y: 0, width: 220, height: 0.5))
         self.topSeparator.autoresizingMask = UIViewAutoresizing.flexibleWidth
         self.menuWrapper.addSubview(self.topSeparator)
         
@@ -422,7 +422,7 @@ open class GHNavigationDropdownMenu: UIView {
         self.isShown = true
         
         // Table view header
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 300))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 220, height: 300))
         headerView.backgroundColor = self.configuration.cellBackgroundColor
         self.tableView.tableHeaderView = headerView
         
