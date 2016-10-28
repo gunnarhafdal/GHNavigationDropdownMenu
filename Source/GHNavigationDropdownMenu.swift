@@ -552,8 +552,6 @@ public func ==(lhs: GHDropdownItem, rhs: GHDropdownItem) -> Bool {
 class GHConfiguration {
     var menuTitleColor: UIColor?
     var cellHeight: CGFloat!
-    var cellTextLabelHeight: CGFloat!
-    var cellDetailTextLabelHeight: CGFloat!
     var cellBackgroundColor: UIColor?
     var cellSeparatorColor: UIColor?
     var cellTextLabelColor: UIColor?
@@ -591,8 +589,6 @@ class GHConfiguration {
         // Default values
         self.menuTitleColor = UIColor.darkGray
         self.cellHeight = 50
-        self.cellTextLabelHeight = 30
-        self.cellDetailTextLabelHeight = 20
         self.cellBackgroundColor = UIColor.white
         self.arrowTintColor = UIColor.white
         self.cellSeparatorColor = UIColor.darkGray
@@ -707,7 +703,7 @@ class GHTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - Table view cell
 class GHTableViewCell: UITableViewCell {
-    let checkmarkIconWidth: CGFloat = 50
+    let checkmarkIconWidth: CGFloat = 29
     let horizontalMargin: CGFloat = 20
     
     var checkmarkIcon: UIImageView!
@@ -720,41 +716,45 @@ class GHTableViewCell: UITableViewCell {
         self.configuration = configuration
         
         // Setup cell
-        cellContentFrame = CGRect(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.frame.width)!, height: self.configuration.cellHeight)
+        cellContentFrame = CGRect(x: 0, y: 0, width: 220.0, height: self.configuration.cellHeight)
         self.contentView.backgroundColor = self.configuration.cellBackgroundColor
         self.selectionStyle = UITableViewCellSelectionStyle.none
         
+        let cellTopMargin: CGFloat = 5.0
+        
         // Cell text label
+        let textLabelHeight = self.configuration.cellTextLabelFont.lineHeight
         self.textLabel!.textColor = self.configuration.cellTextLabelColor
         self.textLabel!.font = self.configuration.cellTextLabelFont
         self.textLabel!.textAlignment = self.configuration.cellTextLabelAlignment
         if self.textLabel!.textAlignment == .center {
-            self.textLabel!.frame = CGRect(x: 0, y: 0, width: cellContentFrame.width, height: self.configuration.cellTextLabelHeight)
+            self.textLabel!.frame = CGRect(x: 0, y: cellTopMargin, width: cellContentFrame.width, height: textLabelHeight)
         } else if self.textLabel!.textAlignment == .left {
-            self.textLabel!.frame = CGRect(x: horizontalMargin, y: 0, width: cellContentFrame.width, height: self.configuration.cellTextLabelHeight)
+            self.textLabel!.frame = CGRect(x: horizontalMargin, y: cellTopMargin, width: cellContentFrame.width, height: textLabelHeight)
         } else {
-            self.textLabel!.frame = CGRect(x: -horizontalMargin, y: 0, width: cellContentFrame.width, height: self.configuration.cellTextLabelHeight)
+            self.textLabel!.frame = CGRect(x: -horizontalMargin, y: cellTopMargin, width: cellContentFrame.width, height: textLabelHeight)
         }
         
         // Cell detail text label
+        let detailTextLabelHeight = self.configuration.cellDetailTextLabelFont.lineHeight
         self.detailTextLabel!.textColor = self.configuration.cellDetailTextLabelColor
         self.detailTextLabel!.font = self.configuration.cellDetailTextLabelFont
         self.detailTextLabel!.textAlignment = self.configuration.cellDetailTextLabelAlignment
         if self.detailTextLabel!.textAlignment == .center {
-            self.detailTextLabel!.frame = CGRect(x: 0, y: self.configuration.cellTextLabelHeight, width: cellContentFrame.width, height: self.configuration.cellDetailTextLabelHeight)
+            self.detailTextLabel!.frame = CGRect(x: 0, y: cellTopMargin + textLabelHeight, width: cellContentFrame.width, height: detailTextLabelHeight)
         } else if self.detailTextLabel!.textAlignment == .left {
-            self.detailTextLabel!.frame = CGRect(x: horizontalMargin, y: self.configuration.cellTextLabelHeight, width: cellContentFrame.width, height: self.configuration.cellDetailTextLabelHeight)
+            self.detailTextLabel!.frame = CGRect(x: horizontalMargin, y: cellTopMargin + textLabelHeight, width: cellContentFrame.width, height: detailTextLabelHeight)
         } else {
-            self.detailTextLabel!.frame = CGRect(x: -horizontalMargin, y: self.configuration.cellTextLabelHeight, width: cellContentFrame.width, height: self.configuration.cellDetailTextLabelHeight)
+            self.detailTextLabel!.frame = CGRect(x: -horizontalMargin, y: cellTopMargin + textLabelHeight, width: cellContentFrame.width, height: detailTextLabelHeight)
         }
         
         // Checkmark icon
         if self.textLabel!.textAlignment == .center {
-            self.checkmarkIcon = UIImageView(frame: CGRect(x: cellContentFrame.width - checkmarkIconWidth, y: (cellContentFrame.height - 30)/2, width: 30, height: 30))
+            self.checkmarkIcon = UIImageView(frame: CGRect(x: cellContentFrame.width - checkmarkIconWidth, y: 10, width: 29, height: 11))
         } else if self.textLabel!.textAlignment == .left {
-            self.checkmarkIcon = UIImageView(frame: CGRect(x: cellContentFrame.width - checkmarkIconWidth, y: (cellContentFrame.height - 30)/2, width: 30, height: 30))
+            self.checkmarkIcon = UIImageView(frame: CGRect(x: cellContentFrame.width - checkmarkIconWidth, y: 10, width: 29, height: 11))
         } else {
-            self.checkmarkIcon = UIImageView(frame: CGRect(x: horizontalMargin, y: (cellContentFrame.height - 30)/2, width: 30, height: 30))
+            self.checkmarkIcon = UIImageView(frame: CGRect(x: horizontalMargin, y: 10, width: 29, height: 11))
         }
         self.checkmarkIcon.isHidden = true
         self.checkmarkIcon.image = self.configuration.checkMarkImage
