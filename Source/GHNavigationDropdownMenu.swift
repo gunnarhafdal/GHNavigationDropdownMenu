@@ -48,26 +48,6 @@ open class GHNavigationDropdownMenu: UIView {
             self.configuration.cellHeight = CGFloat(value)
         }
     }
-    
-    // The height of the cell. Default is 30
-    open var cellTextLabelHeight: NSNumber! {
-        get {
-            return self.configuration.cellTextLabelHeight as NSNumber!
-        }
-        set(value) {
-            self.configuration.cellTextLabelHeight = CGFloat(value)
-        }
-    }
-    
-    // The height of the cell. Default is 20
-    open var cellDetailTextLabelHeight: NSNumber! {
-        get {
-            return self.configuration.cellDetailTextLabelHeight as NSNumber!
-        }
-        set(value) {
-            self.configuration.cellDetailTextLabelHeight = CGFloat(value)
-        }
-    }
 
     // The color of the cell background. Default is whiteColor()
     open var cellBackgroundColor: UIColor! {
@@ -583,7 +563,7 @@ class GHConfiguration {
         let bundle = Bundle(for: GHConfiguration.self)
         let url = bundle.url(forResource: "GHNavigationDropdownMenu", withExtension: "bundle")
         let imageBundle = Bundle(url: url!)
-        let checkMarkImagePath = imageBundle?.path(forResource: "checkmark_icon", ofType: "png")
+        let checkMarkImagePath = imageBundle?.path(forResource: "icon-check-green", ofType: "png")
         let arrowImagePath = imageBundle?.path(forResource: "arrow_down_icon", ofType: "png")
 
         // Default values
