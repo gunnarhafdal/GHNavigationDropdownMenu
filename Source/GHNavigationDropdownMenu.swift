@@ -1,5 +1,5 @@
 //
-//  BTConfiguration.swift
+//  GHNavigationDropdownMenu.swift
 //  GHNavigationDropdownMenu
 //
 //  Created by Pham Ba Tho on 6/30/15.
