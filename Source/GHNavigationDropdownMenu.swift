@@ -532,8 +532,8 @@ open class GHNavigationDropdownMenu: UIView {
 
 // MARK: - Dropdown Item
 public struct GHDropdownItem {
-    let title: String
-    let subtitle: String
+    public let title: String
+    public let subtitle: String
 }
 
 extension GHDropdownItem: Equatable {}
