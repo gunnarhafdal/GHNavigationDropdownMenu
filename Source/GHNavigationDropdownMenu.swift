@@ -1,6 +1,6 @@
 //
 //  BTConfiguration.swift
-//  BTNavigationDropdownMenu
+//  GHNavigationDropdownMenu
 //
 //  Created by Pham Ba Tho on 6/30/15.
 //  Copyright (c) 2015 PHAM BA THO. All rights reserved.
@@ -26,8 +26,8 @@
 
 import UIKit
 
-// MARK: BTNavigationDropdownMenu
-open class BTNavigationDropdownMenu: UIView {
+// MARK: GHNavigationDropdownMenu
+open class GHNavigationDropdownMenu: UIView {
     
     // The color of menu title. Default is darkGrayColor()
     open var menuTitleColor: UIColor! {
@@ -265,7 +265,7 @@ open class BTNavigationDropdownMenu: UIView {
         
         // Init button as navigation title
         self.menuButton = UIButton(frame: frame)
-        self.menuButton.addTarget(self, action: #selector(BTNavigationDropdownMenu.menuButtonTapped(_:)), for: UIControlEvents.touchUpInside)
+        self.menuButton.addTarget(self, action: #selector(GHNavigationDropdownMenu.menuButtonTapped(_:)), for: UIControlEvents.touchUpInside)
         self.addSubview(self.menuButton)
 
         self.menuTitle = UILabel(frame: frame)
@@ -290,7 +290,7 @@ open class BTNavigationDropdownMenu: UIView {
         self.backgroundView.backgroundColor = self.configuration.maskBackgroundColor
         self.backgroundView.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
         
-        let backgroundTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(BTNavigationDropdownMenu.hideMenu));
+        let backgroundTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(GHNavigationDropdownMenu.hideMenu));
         self.backgroundView.addGestureRecognizer(backgroundTapRecognizer)
         
         // Init properties
@@ -498,7 +498,7 @@ class BTConfiguration {
     func defaultValue() {
         // Path for image
         let bundle = Bundle(for: BTConfiguration.self)
-        let url = bundle.url(forResource: "BTNavigationDropdownMenu", withExtension: "bundle")
+        let url = bundle.url(forResource: "GHNavigationDropdownMenu", withExtension: "bundle")
         let imageBundle = Bundle(url: url!)
         let checkMarkImagePath = imageBundle?.path(forResource: "checkmark_icon", ofType: "png")
         let arrowImagePath = imageBundle?.path(forResource: "arrow_down_icon", ofType: "png")

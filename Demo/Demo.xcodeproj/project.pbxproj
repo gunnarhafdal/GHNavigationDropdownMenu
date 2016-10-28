@@ -13,10 +13,10 @@
 		2E44D6B11B4C326300C9C49E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E44D6B01B4C326300C9C49E /* Images.xcassets */; };
 		2E44D6B41B4C326300C9C49E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E44D6B21B4C326300C9C49E /* LaunchScreen.xib */; };
 		2E44D6C01B4C326300C9C49E /* DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44D6BF1B4C326300C9C49E /* DemoTests.swift */; };
-		2E44D6CC1B4C336600C9C49E /* BTNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2E44D6CA1B4C336600C9C49E /* BTNavigationDropdownMenu.bundle */; };
-		2E44D6CD1B4C336600C9C49E /* BTNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2E44D6CA1B4C336600C9C49E /* BTNavigationDropdownMenu.bundle */; };
-		2E44D6CE1B4C336600C9C49E /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44D6CB1B4C336600C9C49E /* BTNavigationDropdownMenu.swift */; };
-		2E44D6CF1B4C336600C9C49E /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44D6CB1B4C336600C9C49E /* BTNavigationDropdownMenu.swift */; };
+		2E44D6CC1B4C336600C9C49E /* GHNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2E44D6CA1B4C336600C9C49E /* GHNavigationDropdownMenu.bundle */; };
+		2E44D6CD1B4C336600C9C49E /* GHNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2E44D6CA1B4C336600C9C49E /* GHNavigationDropdownMenu.bundle */; };
+		2E44D6CE1B4C336600C9C49E /* GHNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44D6CB1B4C336600C9C49E /* GHNavigationDropdownMenu.swift */; };
+		2E44D6CF1B4C336600C9C49E /* GHNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44D6CB1B4C336600C9C49E /* GHNavigationDropdownMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +40,8 @@
 		2E44D6B91B4C326300C9C49E /* DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E44D6BE1B4C326300C9C49E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E44D6BF1B4C326300C9C49E /* DemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTests.swift; sourceTree = "<group>"; };
-		2E44D6CA1B4C336600C9C49E /* BTNavigationDropdownMenu.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BTNavigationDropdownMenu.bundle; sourceTree = "<group>"; };
-		2E44D6CB1B4C336600C9C49E /* BTNavigationDropdownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTNavigationDropdownMenu.swift; sourceTree = "<group>"; };
+		2E44D6CA1B4C336600C9C49E /* GHNavigationDropdownMenu.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GHNavigationDropdownMenu.bundle; sourceTree = "<group>"; };
+		2E44D6CB1B4C336600C9C49E /* GHNavigationDropdownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GHNavigationDropdownMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +122,8 @@
 		2E44D6C91B4C336600C9C49E /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				2E44D6CA1B4C336600C9C49E /* BTNavigationDropdownMenu.bundle */,
-				2E44D6CB1B4C336600C9C49E /* BTNavigationDropdownMenu.swift */,
+				2E44D6CA1B4C336600C9C49E /* GHNavigationDropdownMenu.bundle */,
+				2E44D6CB1B4C336600C9C49E /* GHNavigationDropdownMenu.swift */,
 			);
 			name = Source;
 			path = ../Source;
@@ -216,7 +216,7 @@
 				2E44D6AF1B4C326300C9C49E /* Main.storyboard in Resources */,
 				2E44D6B41B4C326300C9C49E /* LaunchScreen.xib in Resources */,
 				2E44D6B11B4C326300C9C49E /* Images.xcassets in Resources */,
-				2E44D6CC1B4C336600C9C49E /* BTNavigationDropdownMenu.bundle in Resources */,
+				2E44D6CC1B4C336600C9C49E /* GHNavigationDropdownMenu.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,7 +224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E44D6CD1B4C336600C9C49E /* BTNavigationDropdownMenu.bundle in Resources */,
+				2E44D6CD1B4C336600C9C49E /* GHNavigationDropdownMenu.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E44D6AC1B4C326300C9C49E /* ViewController.swift in Sources */,
-				2E44D6CE1B4C336600C9C49E /* BTNavigationDropdownMenu.swift in Sources */,
+				2E44D6CE1B4C336600C9C49E /* GHNavigationDropdownMenu.swift in Sources */,
 				2E44D6AA1B4C326300C9C49E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,7 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E44D6C01B4C326300C9C49E /* DemoTests.swift in Sources */,
-				2E44D6CF1B4C336600C9C49E /* BTNavigationDropdownMenu.swift in Sources */,
+				2E44D6CF1B4C336600C9C49E /* GHNavigationDropdownMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
