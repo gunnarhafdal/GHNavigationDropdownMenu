@@ -26,7 +26,7 @@
 
 import UIKit
 
-// MARK: GHNavigationDropdownMenu
+// MARK: NavigationDropdownMenu
 open class GHNavigationDropdownMenu: UIView {
     
     // The color of menu title. Default is darkGrayColor()
@@ -224,13 +224,13 @@ open class GHNavigationDropdownMenu: UIView {
     open var isShown: Bool!
 
     fileprivate weak var navigationController: UINavigationController?
-    fileprivate var configuration = BTConfiguration()
+    fileprivate var configuration = GHConfiguration()
     fileprivate var topSeparator: UIView!
     fileprivate var menuButton: UIButton!
     fileprivate var menuTitle: UILabel!
     fileprivate var menuArrow: UIImageView!
     fileprivate var backgroundView: UIView!
-    fileprivate var tableView: BTTableView!
+    fileprivate var tableView: GHTableView!
     fileprivate var items: [AnyObject]!
     fileprivate var menuWrapper: UIView!
     
@@ -299,7 +299,7 @@ open class GHNavigationDropdownMenu: UIView {
         // Init table view
         let navBarHeight = self.navigationController?.navigationBar.bounds.size.height ?? 0
         let statusBarHeight = UIApplication.shared.statusBarFrame.height 
-        self.tableView = BTTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: menuWrapperBounds.height + 300 - navBarHeight - statusBarHeight), items: items, title: title, configuration: self.configuration)
+        self.tableView = GHTableView(frame: CGRect(x: menuWrapperBounds.origin.x, y: menuWrapperBounds.origin.y + 0.5, width: menuWrapperBounds.width, height: menuWrapperBounds.height + 300 - navBarHeight - statusBarHeight), items: items, title: title, configuration: self.configuration)
         
         self.tableView.selectRowAtIndexPathHandler = { [weak self] (indexPath: Int) -> () in
             guard let selfie = self else {
@@ -469,8 +469,8 @@ open class GHNavigationDropdownMenu: UIView {
     }
 }
 
-// MARK: BTConfiguration
-class BTConfiguration {
+// MARK: - Configuration
+class GHConfiguration {
     var menuTitleColor: UIColor?
     var cellHeight: CGFloat!
     var cellBackgroundColor: UIColor?
@@ -497,7 +497,7 @@ class BTConfiguration {
     
     func defaultValue() {
         // Path for image
-        let bundle = Bundle(for: BTConfiguration.self)
+        let bundle = Bundle(for: GHConfiguration.self)
         let url = bundle.url(forResource: "GHNavigationDropdownMenu", withExtension: "bundle")
         let imageBundle = Bundle(url: url!)
         let checkMarkImagePath = imageBundle?.path(forResource: "checkmark_icon", ofType: "png")
@@ -526,11 +526,11 @@ class BTConfiguration {
     }
 }
 
-// MARK: Table View
-class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
+// MARK: - Table View
+class GHTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     // Public properties
-    var configuration: BTConfiguration!
+    var configuration: GHConfiguration!
     var selectRowAtIndexPathHandler: ((_ indexPath: Int) -> ())?
     
     // Private properties
@@ -541,7 +541,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, items: [AnyObject], title: String, configuration: BTConfiguration) {
+    init(frame: CGRect, items: [AnyObject], title: String, configuration: GHConfiguration) {
         super.init(frame: frame, style: UITableViewStyle.plain)
         
         self.items = items
@@ -559,7 +559,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        if let hitView = super.hitTest(point, with: event) , hitView.isKind(of: BTTableCellContentView.self) {
+        if let hitView = super.hitTest(point, with: event) , hitView.isKind(of: GHTableCellContentView.self) {
             return hitView
         }
         return nil;
@@ -579,7 +579,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = BTTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell", configuration: self.configuration)
+        let cell = GHTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell", configuration: self.configuration)
         cell.textLabel?.text = self.items[(indexPath as NSIndexPath).row] as? String
         cell.checkmarkIcon.isHidden = ((indexPath as NSIndexPath).row == selectedIndexPath) ? false : true
         return cell
@@ -590,13 +590,13 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         selectedIndexPath = (indexPath as NSIndexPath).row
         self.selectRowAtIndexPathHandler!((indexPath as NSIndexPath).row)
         self.reloadData()
-        let cell = tableView.cellForRow(at: indexPath) as? BTTableViewCell
+        let cell = tableView.cellForRow(at: indexPath) as? GHTableViewCell
         cell?.contentView.backgroundColor = self.configuration.cellSelectionColor
         cell?.textLabel?.textColor = self.configuration.selectedCellTextLabelColor
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as? BTTableViewCell
+        let cell = tableView.cellForRow(at: indexPath) as? GHTableViewCell
         cell?.checkmarkIcon.isHidden = true
         cell?.contentView.backgroundColor = self.configuration.cellBackgroundColor
         cell?.textLabel?.textColor = self.configuration.cellTextLabelColor
@@ -610,16 +610,16 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: Table view cell
-class BTTableViewCell: UITableViewCell {
+// MARK: - Table view cell
+class GHTableViewCell: UITableViewCell {
     let checkmarkIconWidth: CGFloat = 50
     let horizontalMargin: CGFloat = 20
     
     var checkmarkIcon: UIImageView!
     var cellContentFrame: CGRect!
-    var configuration: BTConfiguration!
+    var configuration: GHConfiguration!
     
-    init(style: UITableViewCellStyle, reuseIdentifier: String?, configuration: BTConfiguration) {
+    init(style: UITableViewCellStyle, reuseIdentifier: String?, configuration: GHConfiguration) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.configuration = configuration
@@ -653,7 +653,7 @@ class BTTableViewCell: UITableViewCell {
         self.contentView.addSubview(self.checkmarkIcon)
         
         // Separator for cell
-        let separator = BTTableCellContentView(frame: cellContentFrame)
+        let separator = GHTableCellContentView(frame: cellContentFrame)
         if let cellSeparatorColor = self.configuration.cellSeparatorColor {
             separator.separatorColor = cellSeparatorColor
         }
@@ -670,8 +670,8 @@ class BTTableViewCell: UITableViewCell {
     }
 }
 
-// Content view of table view cell
-class BTTableCellContentView: UIView {
+// MARK: - Content view of table view cell
+class GHTableCellContentView: UIView {
     var separatorColor: UIColor = UIColor.black
     
     override init(frame: CGRect) {
@@ -703,6 +703,7 @@ class BTTableCellContentView: UIView {
     }
 }
 
+// MARK: - UIViewControler extension
 extension UIViewController {
     // Get ViewController in top present level
     var topPresentedViewController: UIViewController? {
