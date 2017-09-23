@@ -52,10 +52,10 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "Gunnar Hafdal" => "email@address.com", "Pham Ba Tho" => "phambatho@gmail.com" }
+  s.author             = { "Gunnar Hafdal" => "gunnarhafdal@gmail.com" }
   # Or just: s.author    = "Gunnar Hafdal"
   # s.authors            = { "Gunnar Hafdal" => "email@address.com" }
-  s.social_media_url   = "http://twitter.com/Gunnar Hafdal"
+  s.social_media_url   = "http://twitter.com/GunnarHafdal"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
   #
 
   # s.platform     = :ios
-  s.platform     = :ios, "9.0"
+  s.platform     = :ios, "9.3"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"

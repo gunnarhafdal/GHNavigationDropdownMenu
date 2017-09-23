@@ -1,33 +1,20 @@
-![alt tag](https://github.com/gunnarhafdal/GHNavigationDropdownMenu/blob/master/Assets/BTNavigationDropdownLogo.png)
-
-[![Pod Version](https://img.shields.io/cocoapods/v/GHNavigationDropdownMenu.svg?style=flat)](http://cocoadocs.org/docsets/GHNavigationDropdownMenu/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/gunnarhafdal/GHNavigationDropdownMenu/blob/master/LICENSE)
 ![Language](https://img.shields.io/badge/language-Swift-brightgreen.svg?style=flat)
-<!--[![Build Status](https://travis-ci.org/gunnarhafdal/GHNavigationDropdownMenu.svg?branch=master)](https://travis-ci.org/gunnarhafdal/GHNavigationDropdownMenu)-->
 
 ## Introduction:
-The elegant dropdown menu, written in **Swift**, appears underneath navigation bar to display a list of related items when a user click on the navigation title.
-
-![alt tag](https://github.com/gunnarhafdal/GHNavigationDropdownMenu/blob/master/Assets/Demo.gif)
-
-## Installation:
-**GHNavigationDropdownMenu** is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-use_frameworks!
-pod 'GHNavigationDropdownMenu'
-```
-Go ahead and **import** GHNavigationDropdownMenu into your own Swift files 
-```swift
-import GHNavigationDropdownMenu
-```
+The elegant dropdown menu, written in **Swift**, appears underneath navigation bar to display a list of related items when a user click on the navigation title. Forked from [PhamBaTho/BTNavigationDropdownMenu](https://github.com/PhamBaTho/BTNavigationDropdownMenu) because I needed Swift3 support and support for a subtitle in the menu items.
 
 ## Usage:
 ### Instantiating
 Start by creating an Array that contains strings as **elements of dropdown list**:
 ```swift
-let items = ["Most Popular", "Latest", "Trending", "Nearest", "Top Picks"]
+let items = [
+            GHDropdownItem(title: "Most Popular", subtitle: "from our users"),
+            GHDropdownItem(title: "Latest", subtitle: ""),
+            GHDropdownItem(title: "Trending", subtitle: "See what's happening"),
+            GHDropdownItem(title: "Nearest", subtitle: "to you"),
+            GHDropdownItem(title: "Top Picks", subtitle: "by our editors"),
+        ]
 ```
 Create a **new instance** of GHNavigationDropdownMenu:
 ```swift
