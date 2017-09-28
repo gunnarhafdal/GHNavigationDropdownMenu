@@ -40,12 +40,12 @@ open class GHNavigationDropdownMenu: UIView {
     }
 
     // The height of the cell. Default is 50
-    open var cellHeight: NSNumber! {
+    open var cellHeight: CGFloat! {
         get {
-            return self.configuration.cellHeight as NSNumber!
+            return self.configuration.cellHeight
         }
         set(value) {
-            self.configuration.cellHeight = CGFloat(value)
+            self.configuration.cellHeight = value
         }
     }
 
