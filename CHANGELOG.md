@@ -1,3 +1,11 @@
+## [1.0.4](https://github.com/PhamBaTho/BTNavigationDropdownMenu/releases/tag/2.0.0) (28-09-2017)
+- Updated to Swift 4.0
+- CellHeight is now a CGFloat instead of NSNumber.
+
+## [1.0.4](https://github.com/PhamBaTho/BTNavigationDropdownMenu/releases/tag/1.0.4) (23-09-2017)
+- Updated to Swift 3.1
+- Using Double.pi instead of M_PI as per Swift 3.1
+
 ## [0.3](https://github.com/PhamBaTho/BTNavigationDropdownMenu/releases/tag/0.3) (17-04-2016)
 - Add toggle() functions
 - Add keepSelectedCellColor property

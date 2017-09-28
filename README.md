@@ -87,8 +87,8 @@ Once you have assigned the items and frame for dropdown menu, you can custom the
 `arrowTintColor`  **- The tint color of the arrow.** *Default is whiteColor()*
 
 ## Requirement
-- iOS 8.0+ (CocoaPods with Swift support will only work on iOS 8.0+. Alternatively, you will have to import library manually to your project)
-- Xcode 8.0+, Swift 3.0+
+- iOS 9.3+
+- Xcode 9.0+, Swift 4.0+
 
 ## Changelog
 See the [CHANGELOG](https://github.com/gunnarhafdal/GHNavigationDropdownMenu/blob/master/CHANGELOG.md) for details
