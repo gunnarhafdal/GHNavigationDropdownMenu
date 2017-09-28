@@ -293,7 +293,7 @@ open class GHNavigationDropdownMenu: UIView {
         }
         
         // Get titleSize
-        let titleSize = (selected.title as NSString).size(attributes: [NSFontAttributeName:self.configuration.navigationBarTitleFont])
+        let titleSize = (selected.title as NSString).size(withAttributes: [NSAttributedStringKey.font:self.configuration.navigationBarTitleFont])
         
         // Set frame
         let frame = CGRect(x: 0, y: 0, width: titleSize.width + (self.configuration.arrowPadding + self.configuration.arrowImage.size.width)*2, height: self.navigationController!.navigationBar.frame.height)
@@ -407,11 +407,11 @@ open class GHNavigationDropdownMenu: UIView {
     }
     
     func setupDefaultConfiguration() {
-        self.menuTitleColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
+        self.menuTitleColor = self.navigationController?.navigationBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor] as? UIColor
         self.cellBackgroundColor = self.navigationController?.navigationBar.barTintColor
-        self.cellSeparatorColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
-        self.cellTextLabelColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
-        self.cellDetailTextLabelColor = self.navigationController?.navigationBar.titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
+        self.cellSeparatorColor = self.navigationController?.navigationBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor] as? UIColor
+        self.cellTextLabelColor = self.navigationController?.navigationBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor] as? UIColor
+        self.cellDetailTextLabelColor = self.navigationController?.navigationBar.titleTextAttributes?[NSAttributedStringKey.foregroundColor] as? UIColor
         
         self.arrowTintColor = self.configuration.arrowTintColor
     }
@@ -458,7 +458,7 @@ open class GHNavigationDropdownMenu: UIView {
         )
     }
     
-    func hideMenu() {
+    @objc func hideMenu() {
         // Rotate arrow
         self.rotateArrow()
         
@@ -505,7 +505,7 @@ open class GHNavigationDropdownMenu: UIView {
         self.menuTitle.text = title
     }
     
-    func menuButtonTapped(_ sender: UIButton) {
+    @objc func menuButtonTapped(_ sender: UIButton) {
         self.isShown == true ? hideMenu() : showMenu()
     }
 }
