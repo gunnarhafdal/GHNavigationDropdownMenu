@@ -3,6 +3,7 @@
 //  GHNavigationDropdownMenu
 //
 //  Created by Pham Ba Tho on 6/30/15.
+//  Modified by Gunnar Hafdal after september 2017
 //  Copyright (c) 2015 PHAM BA THO. All rights reserved.
 //
 
